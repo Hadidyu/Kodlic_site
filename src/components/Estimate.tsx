@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import {
   PROJECT_TYPES, DESIGN_OPTIONS, TIMELINE_OPTIONS, BUDGET_OPTIONS,
 } from "../data";
-import { makeRefCode, saveLead, useCountUp, useInView } from "../hooks";
+import { makeRefCode, submitLead, useCountUp, useInView } from "../hooks";
 import { ArrowLeft, ArrowRight, CheckIcon, DrawCheck, SpinnerIcon } from "./icons";
 import { Corners, Reveal, SectionHead } from "./ui";
 
@@ -132,7 +132,7 @@ export default function Estimate() {
   const sendInquiry = () => {
     setSubmitting(true);
     window.setTimeout(() => {
-      saveLead("estimate", {
+      void submitLead("estimate", {
         ref: refCode.current, type: type?.label, scope: estimate?.scope.label,
         design: estimate?.design.label, timeline: estimate?.tl.label, budget,
         range: estimate ? [estimate.lo, estimate.hi] : null, contact,

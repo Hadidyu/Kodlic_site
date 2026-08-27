@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { BUDGET_OPTIONS, PROJECT_TYPES, TIMELINE_OPTIONS } from "../data";
-import { saveLead } from "../hooks";
+import { submitLead } from "../hooks";
 import { ArrowRight, DrawCheck, MailIcon, SpinnerIcon } from "./icons";
 import { Corners, Reveal } from "./ui";
 
@@ -25,7 +25,7 @@ export default function Contact() {
     if (Object.keys(errs).length) return;
     setStatus("sending");
     window.setTimeout(() => {
-      saveLead("contact", form);
+      void submitLead("contact", form);
       setStatus("sent");
     }, 1200);
   };
