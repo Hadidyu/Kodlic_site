@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Archivo", "Instrument Sans", sans-serif;
-  --font-sans: "Instrument Sans", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  /* In Next.js these vars are injected by next/font (see src/app/layout.tsx);
+     in the Vite build they fall back to the Google Fonts families in index.html. */
+  --font-display: var(--font-archivo, "Archivo"), "Archivo", sans-serif;
+  --font-sans: var(--font-sans-custom, "Instrument Sans"), "Instrument Sans", system-ui, sans-serif;
+  --font-mono: var(--font-mono-custom, "JetBrains Mono"), "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
   --color-ink-950: #06080c;
   --color-ink-900: #0a0e13;

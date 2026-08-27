@@ -111,7 +111,7 @@ export function useCountUp(target: number, play: boolean, duration = 1400): numb
   return value;
 }
 
-export function saveLead(kind: "estimate" | "contact", payload: Record<string, unknown>) {
+export function saveLeadLocal(kind: "estimate" | "contact", payload: Record<string, unknown>) {
   try {
     const key = `kodlic-leads-${kind}`;
     const existing = JSON.parse(localStorage.getItem(key) ?? "[]") as unknown[];
@@ -119,6 +119,29 @@ export function saveLead(kind: "estimate" | "contact", payload: Record<string, u
     localStorage.setItem(key, JSON.stringify(existing));
   } catch {
     /* storage unavailable — lead still acknowledged in UI */
+  }
+}
+
+/**
+ * Client helper — posts the lead to the Next.js API route (POST /api/leads).
+ * Falls back to local storage when the API is unreachable (e.g. static preview),
+ * so the inquiry flow never hard-fails.
+ */
+export async function submitLead(
+  kind: "estimate" | "contact",
+  payload: Record<string, unknown>
+): Promise<{ ok: boolean; id?: string }> {
+  try {
+    const res = await fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind, payload }),
+    });
+    if (!res.ok) throw new Error(`Lead API responded ${res.status}`);
+    return (await res.json()) as { ok: boolean; id?: string };
+  } catch {
+    saveLeadLocal(kind, payload);
+    return { ok: false };
   }
 }
 
