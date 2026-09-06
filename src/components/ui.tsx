@@ -86,7 +86,7 @@ export function BtnPrimary({
   onClick?: () => void;
   className?: string;
 }) {
-  const cls = `group inline-flex items-center gap-2.5 bg-mint-400 text-ink-950 font-display font-bold tracking-tight px-7 py-4 text-[15px] transition-all duration-300 hover:bg-mint-300 hover:shadow-[0_0_36px_rgba(63,229,155,0.28)] active:scale-[0.98] ${className}`;
+  const cls = `group inline-flex items-center gap-2.5 bg-mint-400 text-ink-950 font-display font-bold tracking-tight px-7 py-4 text-[15px] transition-all duration-300 hover:bg-mint-300 hover:shadow-[0_0_36px_color-mix(in_srgb,var(--color-mint-400)_28%,transparent)] active:scale-[0.98] ${className}`;
   const inner = (
     <>
       <span>{children}</span>

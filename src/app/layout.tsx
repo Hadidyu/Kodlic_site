@@ -1,27 +1,33 @@
 import type { Metadata } from "next";
-import { Archivo, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Science_Gothic, JetBrains_Mono } from "next/font/google";
 import "../index.css";
 
-const archivo = Archivo({
+const scienceGothic = Science_Gothic({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800", "900"],
-  variable: "--font-archivo",
-  display: "swap",
-});
-
-const instrumentSans = Instrument_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-sans-custom",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sg",
   display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-  variable: "--font-mono-custom",
+  variable: "--font-jbm",
   display: "swap",
 });
+
+/** Theme flash prevention — runs before first paint. */
+const themeInit = `
+(function () {
+  try {
+    var stored = localStorage.getItem("kodlic-theme");
+    var theme = stored === "light" || stored === "dark"
+      ? stored
+      : window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", theme);
+  } catch (e) {}
+})();
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kodlic.dev"),
@@ -49,8 +55,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${archivo.variable} ${instrumentSans.variable} ${jetbrainsMono.variable} antialiased`}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+      </head>
+      <body className={`${scienceGothic.variable} ${jetbrainsMono.variable} antialiased`}>
         {children}
       </body>
     </html>

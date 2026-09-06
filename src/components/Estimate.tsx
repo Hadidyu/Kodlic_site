@@ -210,7 +210,7 @@ export default function Estimate() {
                   {type && (
                     <span
                       className="chip"
-                      style={{ color: "var(--color-mint-300)", borderColor: "rgba(35, 201, 130, 0.45)" }}
+                      style={{ color: "var(--color-mint-300)", borderColor: "color-mix(in srgb, var(--color-mint-400) 45%, transparent)" }}
                     >
                       {type.label}
                     </span>
@@ -326,7 +326,7 @@ export default function Estimate() {
                       disabled={!canNext}
                       className={`group inline-flex items-center gap-2.5 font-display font-bold px-7 py-3.5 text-[15px] transition-all duration-300 active:scale-[0.97] ${
                         canNext
-                          ? "bg-mint-400 text-ink-950 hover:bg-mint-300 hover:shadow-[0_0_30px_rgba(63,229,155,0.25)]"
+                          ? "bg-mint-400 text-ink-950 hover:bg-mint-300 hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-mint-400)_25%,transparent)]"
                           : "bg-ink-700 text-fog-500 cursor-not-allowed"
                       }`}
                     >
@@ -376,7 +376,7 @@ export default function Estimate() {
                       type="button"
                       onClick={sendInquiry}
                       disabled={submitting}
-                      className="group inline-flex items-center gap-2.5 bg-mint-400 text-ink-950 font-display font-bold px-7 py-4 text-[15px] transition-all duration-300 hover:bg-mint-300 hover:shadow-[0_0_36px_rgba(63,229,155,0.28)] active:scale-[0.98] disabled:opacity-60"
+                      className="group inline-flex items-center gap-2.5 bg-mint-400 text-ink-950 font-display font-bold px-7 py-4 text-[15px] transition-all duration-300 hover:bg-mint-300 hover:shadow-[0_0_36px_color-mix(in_srgb,var(--color-mint-400)_28%,transparent)] active:scale-[0.98] disabled:opacity-60"
                     >
                       {submitting ? <SpinnerIcon size={17} /> : <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />}
                       {submitting ? "Sending…" : "Send inquiry to Kodlic"}

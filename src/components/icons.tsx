@@ -21,7 +21,7 @@ export function LogoMark({ size = 26, ...rest }: P) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" {...rest}>
       <path d="M7.2 4.5 3 12l4.2 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       <path d="M16.8 4.5 21 12l-4.2 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M13.6 7.5 10.4 16.5" stroke="#3fe59b" strokeWidth="2.2" strokeLinecap="round" />
+      <path d="M13.6 7.5 10.4 16.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -180,6 +180,19 @@ export const MailIcon = (p: P) => (
   <svg {...base(p)}>
     <rect x="3" y="5" width="18" height="14" rx="1.5" />
     <path d="m3.5 7 8.5 6 8.5-6" />
+  </svg>
+);
+
+export const SunIcon = (p: P) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" />
+  </svg>
+);
+
+export const MoonIcon = (p: P) => (
+  <svg {...base(p)}>
+    <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" />
   </svg>
 );
 

@@ -8,7 +8,7 @@ const ACCENT_TEXT = {
   steel: "group-hover:text-steel-400",
 };
 const ACCENT_BTN = {
-  mint: "bg-mint-400 text-ink-950 hover:bg-mint-300 hover:shadow-[0_0_30px_rgba(63,229,155,0.25)]",
+  mint: "bg-mint-400 text-ink-950 hover:bg-mint-300 hover:shadow-[0_0_30px_color-mix(in_srgb,var(--color-mint-400)_25%,transparent)]",
   sun: "border border-sun-400/50 text-sun-300 hover:bg-sun-400/10",
   steel: "border border-steel-400/50 text-steel-400 hover:bg-steel-400/10",
 };
