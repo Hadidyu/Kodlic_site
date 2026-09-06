@@ -84,7 +84,7 @@ export default function Hero() {
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <a
                 href="#estimate"
-                className="group inline-flex items-center gap-2.5 bg-mint-400 text-ink-950 font-display font-bold tracking-tight px-8 py-4 text-[15px] transition-all duration-300 hover:bg-mint-300 hover:shadow-[0_0_40px_rgba(63,229,155,0.3)] active:scale-[0.98]"
+                className="group inline-flex items-center gap-2.5 bg-mint-400 text-ink-950 font-display font-bold tracking-tight px-8 py-4 text-[15px] transition-all duration-300 hover:bg-mint-300 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--color-mint-400)_30%,transparent)] active:scale-[0.98]"
               >
                 Start a Project
                 <ArrowRight size={17} className="transition-transform duration-300 group-hover:translate-x-1" />

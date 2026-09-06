@@ -1,10 +1,29 @@
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "../data";
-import { LogoMark, MenuIcon, CloseIcon, ArrowRight } from "./icons";
+import { LogoMark, MenuIcon, CloseIcon, ArrowRight, SunIcon, MoonIcon } from "./icons";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const attr = document.documentElement.getAttribute("data-theme");
+    setTheme(attr === "light" ? "light" : "dark");
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const next = prev === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("kodlic-theme", next);
+      } catch {
+        /* private mode */
+      }
+      return next;
+    });
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -50,9 +69,31 @@ export default function Nav() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              title={theme === "dark" ? "Light mode" : "Dark mode"}
+              className="relative w-10 h-10 border border-line flex items-center justify-center text-fog-300 transition-all duration-300 hover:border-mint-400/60 hover:text-mint-400 active:scale-90"
+            >
+              <span
+                className={`absolute transition-all duration-300 ${
+                  theme === "dark" ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-50"
+                }`}
+              >
+                <SunIcon size={17} />
+              </span>
+              <span
+                className={`absolute transition-all duration-300 ${
+                  theme === "light" ? "opacity-100 rotate-0 scale-100" : "opacity-0 rotate-90 scale-50"
+                }`}
+              >
+                <MoonIcon size={17} />
+              </span>
+            </button>
             <a
               href="#estimate"
-              className="hidden sm:inline-flex items-center gap-2 bg-fog-100 text-ink-950 font-display font-bold text-sm px-5 py-2.5 transition-all duration-300 hover:bg-mint-400 hover:shadow-[0_0_28px_rgba(63,229,155,0.3)] active:scale-[0.97]"
+              className="hidden sm:inline-flex items-center gap-2 bg-fog-100 text-ink-950 font-display font-bold text-sm px-5 py-2.5 transition-all duration-300 hover:bg-mint-400 hover:shadow-[0_0_28px_color-mix(in_srgb,var(--color-mint-400)_30%,transparent)] active:scale-[0.97]"
             >
               Start a Project
               <ArrowRight size={15} />

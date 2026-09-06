@@ -1,32 +1,34 @@
 @import "tailwindcss";
 
 @theme {
-  /* In Next.js these vars are injected by next/font (see src/app/layout.tsx);
-     in the Vite build they fall back to the Google Fonts families in index.html. */
-  --font-display: var(--font-archivo, "Archivo"), "Archivo", sans-serif;
-  --font-sans: var(--font-sans-custom, "Instrument Sans"), "Instrument Sans", system-ui, sans-serif;
-  --font-mono: var(--font-mono-custom, "JetBrains Mono"), "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+  /* Type — Science Gothic for display & body, JetBrains Mono for technical accents.
+     In Next.js these vars are injected by next/font (see src/app/layout.tsx);
+     in the Vite build they fall back to the Google Fonts link in index.html. */
+  --font-display: var(--font-sg, "Science Gothic"), "Science Gothic", sans-serif;
+  --font-sans: var(--font-sg, "Science Gothic"), "Science Gothic", system-ui, sans-serif;
+  --font-mono: var(--font-jbm, "JetBrains Mono"), "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
-  --color-ink-950: #06080c;
-  --color-ink-900: #0a0e13;
-  --color-ink-850: #0d131a;
-  --color-ink-800: #101823;
-  --color-ink-750: #131c28;
-  --color-ink-700: #182434;
+  /* Brand tokens — resolved at runtime from the active theme (see :root / [data-theme]). */
+  --color-ink-950: var(--t-ink-950);
+  --color-ink-900: var(--t-ink-900);
+  --color-ink-850: var(--t-ink-850);
+  --color-ink-800: var(--t-ink-800);
+  --color-ink-750: var(--t-ink-750);
+  --color-ink-700: var(--t-ink-700);
 
-  --color-line: #1c2836;
-  --color-line-soft: #16202c;
+  --color-line: var(--t-line);
+  --color-line-soft: var(--t-line-soft);
 
-  --color-fog-500: #5a6b7d;
-  --color-fog-400: #7e8fa1;
-  --color-fog-300: #a3b2c2;
-  --color-fog-200: #c6d2de;
-  --color-fog-100: #e9eff5;
+  --color-fog-500: var(--t-fog-500);
+  --color-fog-400: var(--t-fog-400);
+  --color-fog-300: var(--t-fog-300);
+  --color-fog-200: var(--t-fog-200);
+  --color-fog-100: var(--t-fog-100);
 
-  --color-mint-300: #7cf0be;
-  --color-mint-400: #3fe59b;
-  --color-mint-500: #23c982;
-  --color-mint-600: #17a468;
+  --color-mint-300: var(--t-mint-300);
+  --color-mint-400: var(--t-mint-400);
+  --color-mint-500: var(--t-mint-500);
+  --color-mint-600: var(--t-mint-600);
 
   --color-sun-300: #ffd37a;
   --color-sun-400: #f5b840;
@@ -35,104 +37,159 @@
   --color-steel-400: #6fa8dc;
 }
 
+/* ============ brand themes — #0A1F44 (navy) × #D6F0FF (ice) × white ============ */
+
+:root,
+html[data-theme="dark"] {
+  --t-ink-950: #040b1c;   /* page base — deepest navy */
+  --t-ink-900: #071430;
+  --t-ink-850: #0a1f44;   /* brand primary #0A1F44 */
+  --t-ink-800: #0d2650;
+  --t-ink-750: #112c5c;
+  --t-ink-700: #163569;
+
+  --t-line: #1e3d74;
+  --t-line-soft: #16305c;
+
+  --t-fog-500: #6c82a8;
+  --t-fog-400: #8fa6c9;
+  --t-fog-300: #b4c6e4;
+  --t-fog-200: #d2e1f7;
+  --t-fog-100: #ffffff;   /* white stays white */
+
+  --t-mint-300: #eaf8ff;
+  --t-mint-400: #d6f0ff;  /* brand secondary #D6F0FF */
+  --t-mint-500: #a9dcff;
+  --t-mint-600: #7fc4f5;
+
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --t-ink-950: #f2faff;   /* page base — ice-tinted white */
+  --t-ink-900: #ffffff;   /* panels go pure white */
+  --t-ink-850: #e9f6fe;
+  --t-ink-800: #dff0fc;
+  --t-ink-750: #d9edfb;
+  --t-ink-700: #d6f0ff;   /* brand secondary as deepest fill */
+
+  --t-line: #c3e0f5;
+  --t-line-soft: #d4eafa;
+
+  --t-fog-500: #5c7093;
+  --t-fog-400: #405a86;
+  --t-fog-300: #2e4570;
+  --t-fog-200: #1b3260;
+  --t-fog-100: #0a1f44;   /* headings go brand navy */
+
+  --t-mint-300: #0e2a5e;  /* hover — deeper navy */
+  --t-mint-400: #0a1f44;  /* accent = brand navy in light */
+  --t-mint-500: #1c3a72;
+  --t-mint-600: #2c4d8d;
+
+  color-scheme: light;
+}
+
+html[data-theme="light"] .noise-layer { opacity: 0.03; }
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-ink-950);
-  color: var(--color-fog-100);
+  background-color: var(--t-ink-950);
+  color: var(--t-fog-100);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 ::selection {
-  background: var(--color-mint-400);
-  color: var(--color-ink-950);
+  background: var(--t-mint-400);
+  color: var(--t-ink-950);
 }
 
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--color-ink-950); }
-::-webkit-scrollbar-thumb { background: var(--color-ink-700); border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-fog-500); }
+::-webkit-scrollbar-track { background: var(--t-ink-950); }
+::-webkit-scrollbar-thumb { background: var(--t-ink-700); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--t-fog-500); }
 
 section[id], footer[id] { scroll-margin-top: 84px; }
 
 /* ---------- component primitives ---------- */
 
-@layer components {
-  .label-mono {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--color-fog-400);
-  }
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-fog-400);
+}
 
-  .stroke-text {
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(233, 239, 245, 0.34);
-  }
+.stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--t-fog-100) 36%, transparent);
+}
 
-  .chip {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-fog-300);
-    border: 1px solid var(--color-line);
-    padding: 7px 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
-  }
-  .chip:hover {
-    border-color: rgba(63, 229, 155, 0.55);
-    color: var(--color-fog-100);
-    background: rgba(63, 229, 155, 0.06);
-    transform: translateY(-1px);
-  }
+.chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-fog-300);
+  border: 1px solid var(--color-line);
+  padding: 7px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.25s ease, color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+.chip:hover {
+  border-color: color-mix(in srgb, var(--t-mint-400) 55%, transparent);
+  color: var(--color-fog-100);
+  background: color-mix(in srgb, var(--t-mint-400) 6%, transparent);
+  transform: translateY(-1px);
+}
 
-  .panel {
-    background: var(--color-ink-850);
-    border: 1px solid var(--color-line);
-  }
+.panel {
+  background: var(--color-ink-850);
+  border: 1px solid var(--color-line);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
 
-  .field {
-    width: 100%;
-    background: var(--color-ink-900);
-    border: 1px solid var(--color-line);
-    color: var(--color-fog-100);
-    padding: 13px 16px;
-    font-size: 15px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  }
-  .field::placeholder { color: var(--color-fog-500); }
-  .field:focus {
-    outline: none;
-    border-color: rgba(63, 229, 155, 0.6);
-    box-shadow: 0 0 0 3px rgba(63, 229, 155, 0.12);
-    background: var(--color-ink-850);
-  }
-  .field.field-error { border-color: rgba(245, 184, 64, 0.7); }
+.field {
+  width: 100%;
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line);
+  color: var(--color-fog-100);
+  padding: 13px 16px;
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.field::placeholder { color: var(--color-fog-500); }
+.field:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--t-mint-400) 60%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--t-mint-400) 12%, transparent);
+  background: var(--color-ink-850);
+}
+.field.field-error { border-color: rgba(245, 184, 64, 0.7); }
 
-  select.field {
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237e8fa1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 40px;
-  }
+select.field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237e8fa1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
 }
 
 /* ---------- ambient layers ---------- */
 
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(126, 143, 161, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(126, 143, 161, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in srgb, var(--t-fog-500) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--t-fog-500) 9%, transparent) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
@@ -202,20 +259,11 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   position: absolute;
   inset: -4px;
   border-radius: 9999px;
-  border: 1px solid rgba(63, 229, 155, 0.6);
+  border: 1px solid color-mix(in srgb, var(--t-mint-400) 60%, transparent);
   animation: pulseRing 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
 }
 
 .cursor-blink { animation: blink 1.1s steps(2, start) infinite; }
-
-.sweep-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 6rem;
-  background: linear-gradient(to right, transparent, rgba(63, 229, 155, 0.7), transparent);
-  animation: sweep 3.4s linear infinite;
-}
 
 .draw-check {
   stroke-dasharray: 26;
@@ -226,6 +274,15 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 .spin-slow { animation: spin 1s linear infinite; }
 
 .option-pop { animation: pop 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.sweep-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6rem;
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--t-mint-400) 70%, transparent), transparent);
+  animation: sweep 3.4s linear infinite;
+}
 
 @keyframes rise { to { transform: translateY(0); } }
 @keyframes fadeUp {
